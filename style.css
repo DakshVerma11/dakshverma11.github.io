@@ -1,0 +1,94 @@
+/* General Reset */
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background: #121212;
+    color: #fff;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header Styling */
+header {
+    background: #1e1e1e;
+    padding: 1rem 0;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+nav a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #00bcd4;
+}
+
+/* Main Content */
+main {
+    flex: 1;
+    padding: 2rem;
+    text-align: center;
+}
+
+#home {
+    margin-bottom: 2rem;
+}
+
+#home h1 {
+    font-size: 2.5rem;
+    color: #00bcd4;
+    margin-bottom: 1rem;
+}
+
+#home p {
+    font-size: 1.2rem;
+}
+
+#about h2 {
+    font-size: 2rem;
+    color: #ff9800;
+    margin-bottom: 1rem;
+}
+
+/* Footer Styling */
+footer {
+    background: #1e1e1e;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+footer p {
+    color: #777;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+    }
+
+    #home h1 {
+        font-size: 2rem;
+    }
+
+    #about h2 {
+        font-size: 1.5rem;
+    }
+}

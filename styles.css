@@ -34,6 +34,15 @@ nav a {
     transition: color 0.3s;
 }
 
+a {
+    color: #00bcd4;
+    text-decoration: underline; /* This will ensure that the links are underlined */
+}
+
+a:hover {
+    color: #008c99; /* Optional: Change the color when hovering over the link */
+}
+
 nav a:hover {
     color: #00bcd4;
 }
@@ -121,14 +130,14 @@ footer a:hover {
     transition: all 0.3s ease;
     padding: 1rem;
     margin: 1rem;
-    border: 2px solid #004ad4;
+    border: 2px solid #00bcd4;
     border-radius: 8px;
     background: #1e1e1e;
     cursor: pointer;
 }
 
 .expandable-item.hovered {
-    box-shadow: 0 0 10px 2px #004ad4; /* Glow effect on hover */
+    box-shadow: 0 0 10px 2px #00bcd4; /* Glow effect on hover */
 }
 
 .expandable-item.expanded {

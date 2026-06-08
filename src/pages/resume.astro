@@ -1,8 +1,8 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
 ---
-<BaseLayout title="Resume â€” Daksh Verma" description="View and download Daksh Verma's resume" currentPath="/resume">
+<BaseLayout title="Resume - Daksh Verma" description="View and download Daksh Verma's resume" currentPath="/resume">
 
 <div class="page-header"><div class="container">
   <p class="section-label">Resume</p>
@@ -14,19 +14,17 @@ import '../styles/global.css';
 <div class="container">
   <div class="resume-viewer reveal">
     <div class="resume-actions">
-      <a href="https://drive.google.com/file/d/1OU6HPxYF0b6xVw8TG_PAMH5F1uYsrCQn/view" target="_blank" rel="noopener" class="btn btn-primary">Open in New Tab â†|</a>
-      <a href="https://drive.google.com/uc?export=download&id=1OU6HPxYF0b6xVw8TG_PAMH5F1uYsrCQn" class="btn btn-ghost" download>Download PDF â†“</a>
+      <a href="https://drive.google.com/file/d/1OU6HPxYF0b6xVw8TG_PAMH5F1uYsrCQn/view" target="_blank" rel="noopener" class="btn btn-primary">Open in New Tab -></a>
+      <a href="https://drive.google.com/uc?export=download&id=1OU6HPxYF0b6xVw8TG_PAMH5F1uYsrCQn" class="btn btn-ghost" download>Download PDF</a>
     </div>
     <iframe
-      class="resume-embed"
       src="https://drive.google.com/file/d/1OU6HPxYF0b6xVw8TG_PAMH5F1uYsrCQn/preview"
-      allow="autoplay"
-      title="Daksh Verma Resume"
+      title="Daksh Verma Resume Preview"
+      class="resume-frame"
       loading="lazy"
+      allow="autoplay"
     ></iframe>
-    <noscript>
-      <p style="padding:24px;color:var(--text-secondary);text-align:center;">JavaScript is required to view the embedded resume. <a href="https://drive.google.com/file/d/1OU6HPxYF0b6xVw8TG_PAMH5F1uYsrCQn/view" target="_blank" rel="noopener" style="color:var(--accent-blue);">Open resume directly</a>.</p>
-    </noscript>
+
   </div>
 </div>
 </section>

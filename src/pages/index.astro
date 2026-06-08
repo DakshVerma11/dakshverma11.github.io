@@ -140,21 +140,6 @@ import '../styles/global.css';
   </div>
 </section>
 
-<!-- BLOG -->
-<section class="blog-section" id="blog">
-  <div class="container">
-    <div class="section-header reveal">
-      <p class="section-label">Writing</p>
-      <h2 class="section-title">Blog</h2>
-    </div>
-    <div class="blog-coming reveal">
-      <div class="blog-coming-icon">✍️</div>
-      <h3>Coming Soon</h3>
-      <p>Technical deep-dives on distributed systems, backend architecture, and engineering lessons learned. Stay tuned.</p>
-    </div>
-  </div>
-</section>
-
 <!-- CONTACT CTA -->
 <section class="contact-cta" id="contact" style="background:var(--bg-secondary);">
   <div class="container">
@@ -198,20 +183,19 @@ function initTerminal() {
     { type: 'blank' },
     { type: 'tags', items: ['Backend Systems', 'Distributed Systems', 'Infrastructure', 'AI Engineering'] },
     { type: 'blank' },
-    { type: 'prompt', text: 'cat status.txt' },
-    { type: 'output', text: 'Microsoft SDE Intern (Summer 2026)' },
-    { type: 'output', text: 'B.Tech CSE @ NIT Delhi | GPA 8.7/10' },
+    { type: 'hint', text: 'Hint: Type "help" for commands, or "play" to defend the cache...' },
   ];
   
   const commands = {
-    help: 'Available commands: whoami, skills, projects, contact, resume, play, clear, help',
-    whoami: 'Daksh Verma | Software Engineer\nBackend Systems | Distributed Systems | Infrastructure | AI Engineering',
+    help: 'Available commands: whoami, skills, projects, contact, resume, ls, clear\n[Hidden]: play',
+    whoami: 'I am Daksh Verma, a backend engineer and AI pipeline builder currently studying at NIT Delhi.\nWhen I\'m not architecting distributed systems or building agentic frameworks, you\'ll probably find me at the gym, riding my bike, swimming, or gaming.\nI thrive on building tools that solve complex, high-scale problems.',
     skills: 'Languages: Java, Python, C/C++, JavaScript, SQL\nBackend: Spring Boot, FastAPI, Node.js, WebSockets\nAI/ML: PyTorch, TensorFlow, GAT, LLM Fine-tuning\nInfra: AWS, Docker, Neo4j, MongoDB, MySQL',
-    projects: 'Featured: AML Neural Pipeline, ChatZero, FinVault\nType: /projects to visit the projects page',
+    projects: 'Featured: AML Neural Pipeline, ChatZero, FinVault, ET Markets AI\nType: /projects to visit the projects page',
     contact: 'Email: verma11daksh@gmail.com\nGitHub: github.com/DakshVerma11\nLinkedIn: linkedin.com/in/verma11daksh',
     resume: 'Opening resume page...',
     play: 'Launching Database Cache Defender...',
     clear: '__CLEAR__',
+    ls: 'projects/  experience/  achievements/  resume.pdf  src/  docker-compose.yml'
   };
 
   function renderLine(line, delay) {
@@ -222,6 +206,7 @@ function initTerminal() {
     if (line.type === 'blank') return `<div class="terminal-line" style="${style}">&nbsp;</div>`;
     if (line.type === 'tags') return `<div class="terminal-line" style="${style}">${line.items.map(t => `<span class="terminal-tag">${t}</span>`).join('')}</div>`;
     if (line.type === 'output') return `<div class="terminal-line" style="${style}"><span class="terminal-output">${line.text}</span></div>`;
+    if (line.type === 'hint') return `<div class="terminal-line" style="${style}"><span class="terminal-output" style="color:var(--text-muted);">${line.text}</span></div>`;
     return '';
   }
 
@@ -246,7 +231,7 @@ function initTerminal() {
     if (!cmd) return;
     
     // Add command to history
-    history.innerHTML += `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-prompt">❯ </span><span class="terminal-cmd">${cmd}</span></div>`;
+    history.insertAdjacentHTML('beforeend', `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-prompt">❯ </span><span class="terminal-cmd">${cmd}</span></div>`);
     
     if (commands[cmd]) {
       if (cmd === 'clear') {
@@ -254,21 +239,21 @@ function initTerminal() {
         return;
       }
       if (cmd === 'resume') {
-        history.innerHTML += `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-output">${commands[cmd]}</span></div>`;
+        history.insertAdjacentHTML('beforeend', `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-output">${commands[cmd]}</span></div>`);
         setTimeout(() => window.location.href = '/resume', 500);
         return;
       }
       if (cmd === 'play') {
-        history.innerHTML += `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-output">${commands[cmd]}</span></div>`;
+        history.insertAdjacentHTML('beforeend', `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-output">${commands[cmd]}</span></div>`);
         setTimeout(() => window.location.href = '/play', 500);
         return;
       }
       const lines = commands[cmd].split('\n');
       lines.forEach(l => {
-        history.innerHTML += `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-output">${l}</span></div>`;
+        history.insertAdjacentHTML('beforeend', `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-output">${l}</span></div>`);
       });
     } else {
-      history.innerHTML += `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-output" style="color:#ef4444;">command not found: ${cmd}</span></div>`;
+      history.insertAdjacentHTML('beforeend', `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-output" style="color:#ef4444;">command not found: ${cmd}</span></div>`);
     }
     history.scrollTop = history.scrollHeight;
   });

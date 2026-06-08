@@ -1,12 +1,12 @@
-﻿---
+---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import '../styles/global.css';
 ---
-<BaseLayout title="Database Cache Defender â€” Daksh Verma" description="A hidden browser game. Protect the database from overload!" currentPath="/play">
+<BaseLayout title="Database Cache Defender - Daksh Verma" description="A browser game. Protect the database from overload!" currentPath="/play">
 
 <section class="game-container">
   <div class="container" style="text-align:center;">
-    <p class="section-label" style="justify-content:center;">Hidden Game</p>
+    <p class="section-label" style="justify-content:center;">Mini Game</p>
     <h1 class="page-title" style="margin-bottom:8px;">Database Cache Defender</h1>
     <p class="page-desc" style="margin:0 auto 24px;text-align:center;">Intercept repeated requests with your cache layer. Protect the database from overload!</p>
     
@@ -15,7 +15,7 @@ import '../styles/global.css';
       <div class="game-overlay" id="game-start-overlay">
         <h2 class="gradient-text">Database Cache Defender</h2>
         <p>Move your cache shield to intercept repeated requests. Let unique requests reach the database. Don't let the DB health hit zero!</p>
-        <p style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">Desktop: Mouse Â· Mobile: Touch</p>
+        <p style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">Desktop: Mouse | Mobile: Touch</p>
         <button class="btn btn-primary" id="start-btn">Start Game</button>
       </div>
       <div class="game-overlay" id="game-over-overlay" style="display:none;">
@@ -181,11 +181,11 @@ import '../styles/global.css';
     gameRunning = false;
     const hitRate = totalRequests > 0 ? Math.round((cacheHits / totalRequests) * 100) : 0;
     let rank;
-    if (score >= 500) rank = 'ðŸ† Principal Engineer';
-    else if (score >= 350) rank = 'â­ Staff Engineer';
-    else if (score >= 200) rank = 'ðŸ”§ Senior Engineer';
-    else if (score >= 100) rank = 'ðŸ’» Mid-Level Engineer';
-    else rank = 'ðŸŒ± Junior Engineer';
+    if (score >= 500) rank = 'Principal Engineer';
+    else if (score >= 350) rank = 'Staff Engineer';
+    else if (score >= 200) rank = 'Senior Engineer';
+    else if (score >= 100) rank = 'Mid-Level Engineer';
+    else rank = 'Junior Engineer';
 
     document.getElementById('final-scores').innerHTML = `
       <div class="metric"><div class="metric-value">${score}</div><div class="metric-label">Score</div></div>

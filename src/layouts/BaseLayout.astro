@@ -60,7 +60,6 @@ const { title, description = "Daksh Verma | Software Engineer specializing in ba
         <a href="/experience" class={currentPath === "/experience" ? "active" : ""}>Experience</a>
         <a href="/achievements" class={currentPath === "/achievements" ? "active" : ""}>Achievements</a>
         <a href="/resume" class={currentPath === "/resume" ? "active" : ""}>Resume</a>
-        <a href="/play" class={currentPath === "/play" ? "active" : ""}>Game</a>
       </div>
     </div>
   </nav>
@@ -115,6 +114,22 @@ const { title, description = "Daksh Verma | Software Engineer specializing in ba
   </div>
 
 <script>
+// ===== SCROLL REVEAL =====
+const observerOptions = { root: null, rootMargin: '0px', threshold: 0.1 };
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      observer.unobserve(entry.target);
+    }
+  });
+}, observerOptions);
+
+document.addEventListener('DOMContentLoaded', () => {
+  const revealElements = document.querySelectorAll('.reveal');
+  revealElements.forEach(el => observer.observe(el));
+});
+
 // ===== NAV & MOBILE MENU =====
 const nav = document.getElementById('main-nav');
 const toggle = document.getElementById('nav-toggle');

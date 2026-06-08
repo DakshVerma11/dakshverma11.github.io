@@ -1,0 +1,205 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+---
+<BaseLayout title="Database Cache Defender â€” Daksh Verma" description="A hidden browser game. Protect the database from overload!" currentPath="/play">
+
+<section class="game-container">
+  <div class="container" style="text-align:center;">
+    <p class="section-label" style="justify-content:center;">Hidden Game</p>
+    <h1 class="page-title" style="margin-bottom:8px;">Database Cache Defender</h1>
+    <p class="page-desc" style="margin:0 auto 24px;text-align:center;">Intercept repeated requests with your cache layer. Protect the database from overload!</p>
+    
+    <div class="game-canvas-wrap" id="game-wrap">
+      <canvas id="game-canvas"></canvas>
+      <div class="game-overlay" id="game-start-overlay">
+        <h2 class="gradient-text">Database Cache Defender</h2>
+        <p>Move your cache shield to intercept repeated requests. Let unique requests reach the database. Don't let the DB health hit zero!</p>
+        <p style="font-family:var(--font-mono);font-size:0.75rem;color:var(--text-muted);">Desktop: Mouse Â· Mobile: Touch</p>
+        <button class="btn btn-primary" id="start-btn">Start Game</button>
+      </div>
+      <div class="game-overlay" id="game-over-overlay" style="display:none;">
+        <h2>Game Over</h2>
+        <div class="game-score-grid" id="final-scores"></div>
+        <p class="game-rank" id="final-rank"></p>
+        <button class="btn btn-primary" id="restart-btn">Play Again</button>
+        <a href="/" class="btn btn-ghost" style="margin-top:8px;">Back to Portfolio</a>
+      </div>
+    </div>
+    <div class="game-hud" id="game-hud" style="visibility:hidden;">
+      <div class="game-hud-item"><div class="game-hud-label">Score</div><div class="game-hud-value" id="hud-score">0</div></div>
+      <div class="game-hud-item"><div class="game-hud-label">Cache Hits</div><div class="game-hud-value" id="hud-hits">0</div></div>
+      <div class="game-hud-item"><div class="game-hud-label">DB Health</div><div class="game-hud-value" id="hud-health">100%</div></div>
+      <div class="game-hud-item"><div class="game-hud-label">Time</div><div class="game-hud-value" id="hud-time">60s</div></div>
+    </div>
+  </div>
+</section>
+
+<script>
+(function() {
+  const canvas = document.getElementById('game-canvas');
+  const wrap = document.getElementById('game-wrap');
+  const startOverlay = document.getElementById('game-start-overlay');
+  const overOverlay = document.getElementById('game-over-overlay');
+  const startBtn = document.getElementById('start-btn');
+  const restartBtn = document.getElementById('restart-btn');
+  const hud = document.getElementById('game-hud');
+  if (!canvas || !wrap) return;
+  const ctx = canvas.getContext('2d');
+
+  let w, h, gameRunning = false, score = 0, cacheHits = 0, totalRequests = 0, dbHealth = 100;
+  let cacheX = 0, cacheY = 0, timeLeft = 60, requests = [], spawnTimer = 0;
+  const cacheW = 80, cacheH = 16;
+  const dbRadius = 30;
+  const requestTypes = ['GET /users', 'GET /posts', 'POST /data', 'GET /feed', 'GET /users', 'GET /posts', 'GET /users', 'PUT /config', 'GET /feed', 'DELETE /tmp'];
+  const typeColors = { 'GET /users': '#3b82f6', 'GET /posts': '#8b5cf6', 'POST /data': '#06b6d4', 'GET /feed': '#10b981', 'PUT /config': '#f59e0b', 'DELETE /tmp': '#ef4444' };
+  const seenRequests = new Set();
+
+  function resize() {
+    w = canvas.width = wrap.clientWidth;
+    h = canvas.height = wrap.clientHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function getPos(e) {
+    const r = canvas.getBoundingClientRect();
+    const t = e.touches ? e.touches[0] : e;
+    return { x: t.clientX - r.left, y: t.clientY - r.top };
+  }
+  canvas.addEventListener('mousemove', e => { if (!gameRunning) return; const p = getPos(e); cacheX = p.x; cacheY = p.y; });
+  canvas.addEventListener('touchmove', e => { if (!gameRunning) return; e.preventDefault(); const p = getPos(e); cacheX = p.x; cacheY = p.y; }, { passive: false });
+
+  function spawnRequest() {
+    const type = requestTypes[Math.floor(Math.random() * requestTypes.length)];
+    const side = Math.floor(Math.random() * 3);
+    let x, y, vx, vy;
+    const dbX = w / 2, dbY = h / 2;
+    if (side === 0) { x = Math.random() * w; y = -10; }
+    else if (side === 1) { x = -10; y = Math.random() * h; }
+    else { x = w + 10; y = Math.random() * h; }
+    const angle = Math.atan2(dbY - y, dbX - x);
+    const speed = 1 + Math.random() * 1.5 + (60 - timeLeft) * 0.02;
+    vx = Math.cos(angle) * speed;
+    vy = Math.sin(angle) * speed;
+    const isRepeat = seenRequests.has(type);
+    seenRequests.add(type);
+    requests.push({ x, y, vx, vy, type, isRepeat, r: 6, alive: true });
+    totalRequests++;
+  }
+
+  function update(dt) {
+    spawnTimer += dt;
+    const spawnRate = Math.max(200, 600 - (60 - timeLeft) * 8);
+    if (spawnTimer > spawnRate) { spawnRequest(); spawnTimer = 0; }
+    const dbX = w / 2, dbY = h / 2;
+    for (let i = requests.length - 1; i >= 0; i--) {
+      const req = requests[i];
+      req.x += req.vx; req.y += req.vy;
+      // Check cache collision
+      if (req.x > cacheX - cacheW/2 && req.x < cacheX + cacheW/2 && req.y > cacheY - cacheH/2 && req.y < cacheY + cacheH/2) {
+        if (req.isRepeat) { score += 10; cacheHits++; } else { score = Math.max(0, score - 5); dbHealth = Math.max(0, dbHealth - 3); }
+        requests.splice(i, 1); continue;
+      }
+      // Check DB collision
+      const dx = req.x - dbX, dy = req.y - dbY, dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < dbRadius + req.r) {
+        if (req.isRepeat) { dbHealth = Math.max(0, dbHealth - 8); score = Math.max(0, score - 3); } else { score += 5; }
+        requests.splice(i, 1); continue;
+      }
+      // Remove if off screen
+      if (req.x < -50 || req.x > w+50 || req.y < -50 || req.y > h+50) { requests.splice(i, 1); }
+    }
+    if (dbHealth <= 0) endGame();
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, w, h);
+    // Grid background
+    ctx.strokeStyle = 'rgba(255,255,255,0.02)';
+    for (let x = 0; x < w; x += 40) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke(); }
+    for (let y = 0; y < h; y += 40) { ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(w, y); ctx.stroke(); }
+    // Database
+    const dbX = w/2, dbY = h/2;
+    const healthColor = dbHealth > 60 ? '#10b981' : dbHealth > 30 ? '#f59e0b' : '#ef4444';
+    ctx.beginPath(); ctx.arc(dbX, dbY, dbRadius, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(10,10,15,0.9)'; ctx.fill();
+    ctx.strokeStyle = healthColor; ctx.lineWidth = 2; ctx.stroke();
+    ctx.shadowColor = healthColor; ctx.shadowBlur = 15; ctx.stroke(); ctx.shadowBlur = 0;
+    ctx.fillStyle = healthColor; ctx.font = '10px JetBrains Mono, monospace'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillText('DATABASE', dbX, dbY - 5); ctx.fillText(dbHealth + '%', dbX, dbY + 8);
+    // Cache shield
+    ctx.fillStyle = 'rgba(59,130,246,0.8)';
+    ctx.shadowColor = '#3b82f6'; ctx.shadowBlur = 12;
+    ctx.fillRect(cacheX - cacheW/2, cacheY - cacheH/2, cacheW, cacheH);
+    ctx.shadowBlur = 0;
+    ctx.fillStyle = '#fff'; ctx.font = '9px JetBrains Mono, monospace';
+    ctx.fillText('CACHE', cacheX, cacheY + 3);
+    // Requests
+    requests.forEach(req => {
+      ctx.beginPath(); ctx.arc(req.x, req.y, req.r, 0, Math.PI*2);
+      const col = typeColors[req.type] || '#fff';
+      ctx.fillStyle = col; ctx.fill();
+      if (req.isRepeat) { ctx.strokeStyle = '#fff'; ctx.lineWidth = 1; ctx.stroke(); }
+      ctx.fillStyle = 'rgba(255,255,255,0.7)'; ctx.font = '7px JetBrains Mono'; ctx.textAlign = 'center';
+      ctx.fillText(req.type, req.x, req.y - 10);
+    });
+  }
+
+  function updateHUD() {
+    document.getElementById('hud-score').textContent = score;
+    document.getElementById('hud-hits').textContent = cacheHits;
+    document.getElementById('hud-health').textContent = dbHealth + '%';
+    document.getElementById('hud-time').textContent = Math.ceil(timeLeft) + 's';
+  }
+
+  let lastTime = 0, countdownTimer = 0;
+  function gameLoop(ts) {
+    if (!gameRunning) return;
+    const dt = lastTime ? ts - lastTime : 16;
+    lastTime = ts;
+    countdownTimer += dt;
+    if (countdownTimer >= 1000) { timeLeft = Math.max(0, timeLeft - 1); countdownTimer -= 1000; if (timeLeft <= 0) { endGame(); return; } }
+    update(dt);
+    draw();
+    updateHUD();
+    requestAnimationFrame(gameLoop);
+  }
+
+  function startGame() {
+    score = 0; cacheHits = 0; totalRequests = 0; dbHealth = 100; timeLeft = 60;
+    requests = []; seenRequests.clear(); spawnTimer = 0; lastTime = 0; countdownTimer = 0;
+    cacheX = w / 2; cacheY = h * 0.7;
+    startOverlay.style.display = 'none';
+    overOverlay.style.display = 'none';
+    hud.style.visibility = 'visible';
+    gameRunning = true;
+    requestAnimationFrame(gameLoop);
+  }
+
+  function endGame() {
+    gameRunning = false;
+    const hitRate = totalRequests > 0 ? Math.round((cacheHits / totalRequests) * 100) : 0;
+    let rank;
+    if (score >= 500) rank = 'ðŸ† Principal Engineer';
+    else if (score >= 350) rank = 'â­ Staff Engineer';
+    else if (score >= 200) rank = 'ðŸ”§ Senior Engineer';
+    else if (score >= 100) rank = 'ðŸ’» Mid-Level Engineer';
+    else rank = 'ðŸŒ± Junior Engineer';
+
+    document.getElementById('final-scores').innerHTML = `
+      <div class="metric"><div class="metric-value">${score}</div><div class="metric-label">Score</div></div>
+      <div class="metric"><div class="metric-value">${hitRate}%</div><div class="metric-label">Cache Hit Rate</div></div>
+      <div class="metric"><div class="metric-value">${cacheHits}</div><div class="metric-label">Requests Cached</div></div>
+      <div class="metric"><div class="metric-value">${dbHealth}%</div><div class="metric-label">DB Health</div></div>
+    `;
+    document.getElementById('final-rank').textContent = rank;
+    overOverlay.style.display = 'flex';
+  }
+
+  startBtn.addEventListener('click', startGame);
+  restartBtn.addEventListener('click', startGame);
+})();
+</script>
+
+</BaseLayout>

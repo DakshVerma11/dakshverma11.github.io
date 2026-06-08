@@ -1,0 +1,200 @@
+﻿---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import '../styles/global.css';
+---
+<BaseLayout title="Projects â€” Daksh Verma" description="Engineering case studies â€” backend systems, AI pipelines, distributed architectures" currentPath="/projects">
+
+<div class="page-header"><div class="container">
+  <p class="section-label">Engineering Portfolio</p>
+  <h1 class="page-title">Projects</h1>
+  <p class="page-desc">Interactive case studies of production-grade systems, AI pipelines, and engineering experiments.</p>
+</div></div>
+
+<section class="section" style="padding-top:20px;">
+<div class="container">
+
+<!-- AML Pipeline -->
+<article class="case-study reveal" id="aml-pipeline">
+  <div class="case-study-header">
+    <span class="project-card-tier">Tier 1 Â· AI + Graph Systems Â· Sep 2025</span>
+    <h2 class="case-study-title">Anti-Money Laundering Neural Pipeline</h2>
+    <p class="case-study-meta">National CyberShield Hackathon Â· MANIT Bhopal Â· Team NITDominars</p>
+  </div>
+  <div class="case-section"><h3>Problem</h3><p>Traditional rule-based AML systems produce excessive false positives and cannot detect complex multi-layered transaction laundering patterns that span networks of shell accounts.</p></div>
+  <div class="case-section"><h3>Architecture</h3>
+    <div class="arch-diagram" style="position:relative;">
+      <svg viewBox="0 0 800 80" style="width:100%;height:auto;" role="img" aria-label="AML Pipeline architecture">
+        <defs><marker id="arrowhead" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><polygon points="0 0, 8 3, 0 6" fill="var(--accent-cyan)" opacity="0.6"/></marker></defs>
+        <g class="arch-svg-node" data-tip="Raw transaction data ingestion"><rect x="0" y="25" width="100" height="30" rx="6" fill="rgba(59,130,246,0.1)" stroke="var(--accent-blue)" stroke-opacity="0.4"/><text x="50" y="44" text-anchor="middle" fill="var(--accent-cyan)" font-size="10" font-family="var(--font-mono)">Transactions</text></g>
+        <line x1="102" y1="40" x2="128" y2="40" stroke="var(--text-muted)" stroke-opacity="0.4" marker-end="url(#arrowhead)"/>
+        <g class="arch-svg-node" data-tip="2-layer GAT with 3 attention heads"><rect x="130" y="25" width="100" height="30" rx="6" fill="rgba(139,92,246,0.1)" stroke="var(--accent-purple)" stroke-opacity="0.4"/><text x="180" y="44" text-anchor="middle" fill="var(--accent-cyan)" font-size="10" font-family="var(--font-mono)">GAT Model</text></g>
+        <line x1="232" y1="40" x2="258" y2="40" stroke="var(--text-muted)" stroke-opacity="0.4" marker-end="url(#arrowhead)"/>
+        <g class="arch-svg-node" data-tip="MLP with batch norm + dropout 0.4"><rect x="260" y="25" width="100" height="30" rx="6" fill="rgba(59,130,246,0.1)" stroke="var(--accent-blue)" stroke-opacity="0.4"/><text x="310" y="44" text-anchor="middle" fill="var(--accent-cyan)" font-size="10" font-family="var(--font-mono)">MLP Classifier</text></g>
+        <line x1="362" y1="40" x2="388" y2="40" stroke="var(--text-muted)" stroke-opacity="0.4" marker-end="url(#arrowhead)"/>
+        <g class="arch-svg-node" data-tip="Personalized PageRank Î±=0.85"><rect x="390" y="25" width="100" height="30" rx="6" fill="rgba(139,92,246,0.1)" stroke="var(--accent-purple)" stroke-opacity="0.4"/><text x="440" y="44" text-anchor="middle" fill="var(--accent-cyan)" font-size="10" font-family="var(--font-mono)">PageRank</text></g>
+        <line x1="492" y1="40" x2="518" y2="40" stroke="var(--text-muted)" stroke-opacity="0.4" marker-end="url(#arrowhead)"/>
+        <g class="arch-svg-node" data-tip="Cycle detection + community analysis"><rect x="520" y="25" width="120" height="30" rx="6" fill="rgba(6,182,212,0.1)" stroke="var(--accent-cyan)" stroke-opacity="0.4"/><text x="580" y="44" text-anchor="middle" fill="var(--accent-cyan)" font-size="10" font-family="var(--font-mono)">Cycle Detection</text></g>
+        <line x1="642" y1="40" x2="668" y2="40" stroke="var(--text-muted)" stroke-opacity="0.4" marker-end="url(#arrowhead)"/>
+        <g class="arch-svg-node" data-tip="Investigation dashboard with case summaries"><rect x="670" y="25" width="120" height="30" rx="6" fill="rgba(16,185,129,0.1)" stroke="var(--accent-green)" stroke-opacity="0.4"/><text x="730" y="44" text-anchor="middle" fill="var(--accent-cyan)" font-size="10" font-family="var(--font-mono)">Investigation GUI</text></g>
+        <!-- Animated data packet -->
+        <circle r="3" fill="var(--accent-blue)"><animateMotion dur="4s" repeatCount="indefinite" path="M50,40 L180,40 L310,40 L440,40 L580,40 L730,40" /></circle>
+      </svg>
+    </div>
+    <p>Phase 1: Custom 2-layer Graph Attention Network with 3 attention heads and 96 hidden dimensions. Consumes 240-dimensional consolidated embeddings (source + destination + transaction features). MLP classifier with batch normalization and 0.4 dropout.</p>
+    <p>Phase 2: Suspicious nodes trigger automated 2-hop and 3-hop neighborhood expansions. Personalized PageRank (Î±=0.85) propagates suspicion scores. Deterministic cycle calculations and community detection identify structural laundering loops.</p>
+  </div>
+  <div class="case-section"><h3>Scale</h3>
+    <div class="case-metrics">
+      <div class="metric"><div class="metric-value">56K+</div><div class="metric-label">Transactions</div></div>
+      <div class="metric"><div class="metric-value">77K+</div><div class="metric-label">Graph Nodes</div></div>
+      <div class="metric"><div class="metric-value">98.91%</div><div class="metric-label">Accuracy</div></div>
+      <div class="metric"><div class="metric-value">99.81%</div><div class="metric-label">AUC-ROC</div></div>
+    </div>
+  </div>
+  <div class="case-section"><h3>Technologies</h3>
+    <div class="project-card-tags"><span class="tag">PyTorch</span><span class="tag">Graph Attention Networks</span><span class="tag">Neo4j</span><span class="tag">FastAPI</span><span class="tag">PageRank</span><span class="tag">Community Detection</span></div>
+  </div>
+  <div class="case-section"><h3>Lessons Learned</h3><p>Graph neural networks excel at detecting relational fraud patterns that tabular models miss. Personalized PageRank is remarkably effective for propagating suspicion through transaction networks. The combination of ML detection + graph investigation creates a system greater than the sum of its parts.</p></div>
+</article>
+
+<!-- ChatZero -->
+<article class="case-study reveal" id="chatzero">
+  <div class="case-study-header">
+    <span class="project-card-tier">Tier 1 Â· Backend Systems Â· Junâ€“Jul 2025</span>
+    <h2 class="case-study-title">ChatZero â€” Real-Time Messaging System</h2>
+    <p class="case-study-meta">C-DAC Noida Â· Software Engineering Internship</p>
+  </div>
+  <div class="case-section"><h3>Problem</h3><p>Build a production-ready real-time messaging system with strong authentication, persistent chat history, friend management, and background maintenance â€” all within a monolithic Spring Boot architecture.</p></div>
+  <div class="case-section"><h3>Architecture</h3>
+    <div class="arch-diagram">
+      <span class="arch-node">Browser</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">Spring Security</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">STOMP Broker</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">WebSocket Handler</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">JPA/Hibernate</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">MySQL</span>
+    </div>
+    <p>Session-based auth fortified with BCrypt password hashing and Google reCAPTCHA. In-memory STOMP broker for real-time concurrent messaging. Custom cron jobs for background message maintenance and cleanup.</p>
+  </div>
+  <div class="case-section"><h3>Technologies</h3>
+    <div class="project-card-tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Spring Security</span><span class="tag">WebSockets</span><span class="tag">STOMP</span><span class="tag">JPA/Hibernate</span><span class="tag">MySQL</span></div>
+  </div>
+  <div class="case-section"><h3>Links</h3>
+    <div class="project-card-links"><a href="https://github.com/DakshVerma11/ChatZero" target="_blank" rel="noopener">GitHub â†|</a></div>
+  </div>
+</article>
+
+<!-- FinVault -->
+<article class="case-study reveal" id="finvault">
+  <div class="case-study-header">
+    <span class="project-card-tier">Tier 1 Â· Full-Stack + AI Â· Mar 2026</span>
+    <h2 class="case-study-title">FinVault â€” Agentic Personal Finance Manager</h2>
+    <p class="case-study-meta">Privacy-First Mobile Finance Platform</p>
+  </div>
+  <div class="case-section"><h3>Problem</h3><p>Existing finance apps require cloud sync of sensitive financial data. Build a privacy-first alternative with AI-powered categorization that can work offline and comply with India's DPDP Act 2023.</p></div>
+  <div class="case-section"><h3>Architecture</h3>
+    <div class="arch-diagram">
+      <span class="arch-node">Camera/Receipt</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">ML Kit OCR</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">Gemini AI</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">Categorization</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">SecureStore</span>
+    </div>
+    <p>React Native + Expo Router frontend. Node.js/Express/MongoDB cloud layer with JWT auth and OTP verification. On-device ML Kit OCR for receipt parsing. Gemini AI for structured JSON categorization. Architecture roadmap includes ONDC agent commerce integration and RxDB/SQLite edge-first topology.</p>
+  </div>
+  <div class="case-section"><h3>Technologies</h3>
+    <div class="project-card-tags"><span class="tag">React Native</span><span class="tag">Expo</span><span class="tag">Node.js</span><span class="tag">MongoDB</span><span class="tag">Gemini AI</span><span class="tag">ML Kit OCR</span><span class="tag">JWT</span></div>
+  </div>
+</article>
+
+<!-- AI Interviewer -->
+<article class="case-study reveal" id="ai-interviewer">
+  <div class="case-study-header">
+    <span class="project-card-tier">Tier 2 Â· AI Engineering Â· Jun 2025</span>
+    <h2 class="case-study-title">AI Interviewer Prototype</h2>
+  </div>
+  <div class="case-section"><h3>Problem</h3><p>Automate interview proctoring with real-time gaze tracking, vocal analysis, and candidate scoring.</p></div>
+  <div class="case-section"><h3>Architecture</h3>
+    <div class="arch-diagram">
+      <span class="arch-node">Video Feed</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">OpenCV</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">Gaze Tracking</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">Whisper ASR</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">Scoring Engine</span>
+    </div>
+    <p>Multi-user session isolation with independent background processing threads. OpenCV gaze anomaly detection. Whisper + PyAnnote audio pipeline computing WPM, filler-word ratios, and clarity scores.</p>
+  </div>
+  <div class="case-section"><h3>Technologies</h3>
+    <div class="project-card-tags"><span class="tag">React</span><span class="tag">Flask</span><span class="tag">OpenCV</span><span class="tag">Whisper</span><span class="tag">PyAnnote</span></div>
+  </div>
+  <div class="case-section"><h3>Links</h3>
+    <div class="project-card-links"><a href="https://github.com/DakshVerma11/AI_Interviewer_Prototype" target="_blank" rel="noopener">GitHub â†|</a></div>
+  </div>
+</article>
+
+<!-- Gesture Bridge -->
+<article class="case-study reveal" id="gesture-bridge">
+  <div class="case-study-header">
+    <span class="project-card-tier">Tier 2 Â· Deep Learning Â· Marâ€“May 2025</span>
+    <h2 class="case-study-title">Gesture Bridge â€” Real-Time Sign Language Translator</h2>
+    <p class="case-study-meta">NIT Delhi Semester 4 Capstone Project</p>
+  </div>
+  <div class="case-section"><h3>Architecture</h3>
+    <div class="arch-diagram">
+      <span class="arch-node">Camera</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">MediaPipe</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">CNN + Bi-LSTM</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">LLM Translation</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">Multi-Language Output</span>
+    </div>
+    <p>Real-time ISL interpretation using MediaPipe landmark tracking fed into CNN + Bi-LSTM temporal classification. Supports translation to multiple Indian regional languages. Includes reverse Text-to-Sign visualization.</p>
+  </div>
+  <div class="case-section"><h3>Technologies</h3>
+    <div class="project-card-tags"><span class="tag">Python</span><span class="tag">TensorFlow</span><span class="tag">MediaPipe</span><span class="tag">OpenCV</span><span class="tag">CNN</span><span class="tag">Bi-LSTM</span></div>
+  </div>
+</article>
+
+<!-- EcoLoop -->
+<article class="case-study reveal" id="ecoloop">
+  <div class="case-study-header">
+    <span class="project-card-tier">Tier 2 Â· Systems Design Â· Mid 2025</span>
+    <h2 class="case-study-title">EcoLoop â€” Sustainability Tracking System</h2>
+    <p class="case-study-meta">Walmart Sparkathon 2025 Â· Team NITDominars</p>
+  </div>
+  <div class="case-section"><h3>Architecture</h3>
+    <div class="arch-diagram">
+      <span class="arch-node">IoT Sensors</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">Prediction Engine</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">Dynamic Pricing</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">Blockchain Ledger</span><span class="arch-arrow">â†’</span>
+      <span class="arch-node">EcoScore Dashboard</span>
+    </div>
+    <p>AI-IoT perishable food prediction with 72-hour degradation curves. Circular supply chain with blockchain-backed container recycling. Gamified "Earth Coins" incentive system. Real-time carbon footprint tracking per item.</p>
+  </div>
+  <div class="case-section"><h3>Technologies</h3>
+    <div class="project-card-tags"><span class="tag">IoT</span><span class="tag">ML Prediction</span><span class="tag">Blockchain</span><span class="tag">Supply Chain</span></div>
+  </div>
+</article>
+
+<!-- LinearReg Billing -->
+<article class="case-study reveal" id="linearreg">
+  <div class="case-study-header">
+    <span class="project-card-tier">Tier 2 Â· Systems Programming Â· Nov 2023</span>
+    <h2 class="case-study-title">LinearReg Billing & Inventory System</h2>
+  </div>
+  <div class="case-section"><h3>Problem</h3><p>Build a complete enterprise billing and inventory management system in pure C with integrated ML-powered product recommendations.</p></div>
+  <div class="case-section"><h3>Architecture</h3>
+    <p>CLI-based platform with internal linear regression model trained on historical sales data. Computes product affinity suggestions at checkout. Generates structured receipts in plaintext and PDF formats.</p>
+  </div>
+  <div class="case-section"><h3>Technologies</h3>
+    <div class="project-card-tags"><span class="tag">C</span><span class="tag">Linear Regression</span><span class="tag">File I/O</span></div>
+  </div>
+  <div class="case-section"><h3>Links</h3>
+    <div class="project-card-links"><a href="https://github.com/DakshVerma11/Billing-Inventory_System_in_C" target="_blank" rel="noopener">GitHub â†|</a></div>
+  </div>
+</article>
+
+</div>
+</section>
+
+</BaseLayout>

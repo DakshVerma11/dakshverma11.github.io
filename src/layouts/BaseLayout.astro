@@ -1,0 +1,279 @@
+---
+interface Props {
+  title: string;
+  description?: string;
+  currentPath?: string;
+}
+const { title, description = "Daksh Verma | Software Engineer specializing in backend systems, distributed systems, infrastructure, and AI engineering.", currentPath = "/" } = Astro.props;
+---
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{title}</title>
+  <meta name="description" content={description} />
+  <meta name="author" content="Daksh Verma" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content={title} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={`https://dakshverma11.github.io${currentPath}`} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content={title} />
+  <meta name="twitter:description" content={description} />
+  <meta property="og:image" content="https://dakshverma11.github.io/og-image.png" />
+  <meta name="twitter:image" content="https://dakshverma11.github.io/og-image.png" />
+  <meta name="view-transition" content="same-origin" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" sizes="32x32" />
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Daksh Verma",
+    "url": "https://dakshverma11.github.io",
+    "jobTitle": "Software Engineer",
+    "worksFor": { "@type": "Organization", "name": "Microsoft" },
+    "alumniOf": { "@type": "CollegeOrUniversity", "name": "National Institute of Technology Delhi" },
+    "sameAs": ["https://github.com/DakshVerma11", "https://linkedin.com/in/verma11daksh", "https://leetcode.com/u/Daverm"]
+  })} />
+</head>
+<body>
+  <a href="#main-content" class="sr-only">Skip to main content</a>
+  
+  <!-- NAV -->
+  <nav class="nav" id="main-nav" aria-label="Main navigation">
+    <div class="nav-inner">
+      <a href="/" class="nav-logo">
+        <span class="logo-dot"></span>
+        <span>Daksh.Verma</span>
+      </a>
+      <button class="nav-search-btn" id="nav-search-btn" aria-label="Search" title="Search (Ctrl+K)">⌘</button>
+      <button class="nav-toggle" id="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <div class="nav-links" id="nav-links">
+        <a href="/" class={currentPath === "/" ? "active" : ""}>Home</a>
+        <a href="/projects" class={currentPath === "/projects" ? "active" : ""}>Projects</a>
+        <a href="/experience" class={currentPath === "/experience" ? "active" : ""}>Experience</a>
+        <a href="/achievements" class={currentPath === "/achievements" ? "active" : ""}>Achievements</a>
+        <a href="/resume" class={currentPath === "/resume" ? "active" : ""}>Resume</a>
+        <a href="/play" class={currentPath === "/play" ? "active" : ""}>Game</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- STATUS BAR -->
+  <div class="status-bar" role="status">
+    <div class="status-bar-inner">
+      <span class="status-dot"></span>
+      <span id="status-text">SYSTEM ONLINE</span>
+      <span class="status-time" id="status-time"></span>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <main id="main-content">
+    <slot />
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-left">
+        <span class="footer-logo">Daksh.Verma</span>
+        <span class="footer-copy">© {new Date().getFullYear()} — Built with Astro</span>
+      </div>
+      <div class="footer-social">
+        <a href="https://github.com/DakshVerma11" target="_blank" rel="noopener" aria-label="GitHub">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+        </a>
+        <a href="https://linkedin.com/in/verma11daksh" target="_blank" rel="noopener" aria-label="LinkedIn">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+        </a>
+        <a href="mailto:verma11daksh@gmail.com" aria-label="Email">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+        </a>
+      </div>
+      <a href="/play" class="footer-easter" title="Try the hidden game">~/play</a>
+    </div>
+  </footer>
+
+  <!-- COMMAND PALETTE (Search) -->
+  <div class="cmd-backdrop" id="cmd-backdrop" role="dialog" aria-label="Command palette" aria-modal="true">
+    <div class="cmd-palette">
+      <div class="cmd-header">
+        <span class="cmd-prompt">❯</span>
+        <input type="text" id="cmd-input" class="cmd-input" placeholder="Type a command or search..." autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="cmd-results" />
+      </div>
+      <div class="cmd-results" id="cmd-results" role="listbox">
+        <!-- populated by js -->
+      </div>
+    </div>
+  </div>
+
+<script>
+// ===== NAV & MOBILE MENU =====
+const nav = document.getElementById('main-nav');
+const toggle = document.getElementById('nav-toggle');
+const links = document.getElementById('nav-links');
+
+if (nav && toggle && links) {
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 20) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+  });
+
+  toggle.addEventListener('click', () => {
+    const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
+    toggle.setAttribute('aria-expanded', !isExpanded);
+    toggle.classList.toggle('active');
+    links.classList.toggle('active');
+  });
+
+  // Close menu when clicking a link
+  links.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.classList.remove('active');
+      links.classList.remove('active');
+    });
+  });
+}
+
+// ===== STATUS BAR TIME =====
+const timeEl = document.getElementById('status-time');
+if (timeEl) {
+  setInterval(() => {
+    const d = new Date();
+    timeEl.textContent = d.toLocaleTimeString('en-US', { hour12: false, hour: '2-digit', minute:'2-digit', second:'2-digit' }) + ' UTC' + (d.getTimezoneOffset()/-60 >= 0 ? '+' : '') + (d.getTimezoneOffset()/-60);
+  }, 1000);
+}
+
+// ===== COMMAND PALETTE =====
+const cmdBackdrop = document.getElementById('cmd-backdrop');
+const cmdInput = document.getElementById('cmd-input');
+const cmdResults = document.getElementById('cmd-results');
+const searchBtn = document.getElementById('nav-search-btn');
+
+const commands = [
+  { id: 'home', title: 'Home', desc: 'Go to start', action: () => window.location.href = '/' },
+  { id: 'projects', title: 'Projects', desc: 'View engineering case studies', action: () => window.location.href = '/projects' },
+  { id: 'experience', title: 'Experience', desc: 'Work history and timeline', action: () => window.location.href = '/experience' },
+  { id: 'achievements', title: 'Achievements', desc: 'Awards and certifications', action: () => window.location.href = '/achievements' },
+  { id: 'resume', title: 'Resume', desc: 'View or download PDF', action: () => window.location.href = '/resume' },
+  { id: 'github', title: 'GitHub', desc: 'View source code', action: () => window.open('https://github.com/DakshVerma11', '_blank') },
+  { id: 'linkedin', title: 'LinkedIn', desc: 'Professional profile', action: () => window.open('https://linkedin.com/in/verma11daksh', '_blank') },
+  { id: 'email', title: 'Email', desc: 'verma11daksh@gmail.com', action: () => window.open('mailto:verma11daksh@gmail.com') },
+  { id: 'play', title: 'Play Game', desc: 'Database Cache Defender', action: () => window.location.href = '/play' }
+];
+
+let selectedIndex = 0;
+
+function openCmd() {
+  if (!cmdBackdrop || !cmdInput) return;
+  cmdBackdrop.classList.add('active');
+  setTimeout(() => cmdInput.focus(), 50);
+  renderResults('');
+}
+
+function closeCmd() {
+  if (!cmdBackdrop || !cmdInput) return;
+  cmdBackdrop.classList.remove('active');
+  cmdInput.value = '';
+  cmdInput.blur();
+}
+
+function renderResults(query) {
+  if (!cmdResults) return;
+  const q = query.toLowerCase().trim();
+  const filtered = q ? commands.filter(c => c.title.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q)) : commands;
+  
+  if (filtered.length === 0) {
+    cmdResults.innerHTML = '<div class="cmd-item" style="opacity:0.5;cursor:default;">No commands found</div>';
+    return;
+  }
+
+  selectedIndex = Math.min(selectedIndex, filtered.length - 1);
+  if (selectedIndex < 0) selectedIndex = 0;
+
+  cmdResults.innerHTML = filtered.map((c, i) => `
+    <div class="cmd-item ${i === selectedIndex ? 'selected' : ''}" data-id="${c.id}" role="option" aria-selected="${i === selectedIndex}">
+      <span class="cmd-item-title">${c.title}</span>
+      <span class="cmd-item-desc">${c.desc}</span>
+    </div>
+  `).join('');
+
+  const items = cmdResults.querySelectorAll('.cmd-item');
+  items.forEach((item, i) => {
+    item.addEventListener('mouseenter', () => {
+      selectedIndex = i;
+      renderResults(query);
+    });
+    item.addEventListener('click', () => {
+      filtered[i].action();
+      closeCmd();
+    });
+  });
+}
+
+if (cmdBackdrop && cmdInput && cmdResults) {
+  // Toggle with search button in mobile nav
+  if (searchBtn) {
+    searchBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      openCmd();
+    });
+  }
+
+  // Toggle with Ctrl+K or Cmd+K
+  document.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      cmdBackdrop.classList.contains('active') ? closeCmd() : openCmd();
+    }
+    if (e.key === 'Escape' && cmdBackdrop.classList.contains('active')) {
+      closeCmd();
+    }
+  });
+
+  // Close on backdrop click
+  cmdBackdrop.addEventListener('click', e => {
+    if (e.target === cmdBackdrop) closeCmd();
+  });
+
+  cmdInput.addEventListener('input', e => {
+    selectedIndex = 0;
+    renderResults(e.target.value);
+  });
+
+  cmdInput.addEventListener('keydown', e => {
+    const q = cmdInput.value.toLowerCase().trim();
+    const filtered = q ? commands.filter(c => c.title.toLowerCase().includes(q) || c.desc.toLowerCase().includes(q)) : commands;
+    
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      selectedIndex = (selectedIndex + 1) % filtered.length;
+      renderResults(q);
+      const selectedEl = cmdResults.querySelector('.cmd-item.selected');
+      if (selectedEl) selectedEl.scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      selectedIndex = (selectedIndex - 1 + filtered.length) % filtered.length;
+      renderResults(q);
+      const selectedEl = cmdResults.querySelector('.cmd-item.selected');
+      if (selectedEl) selectedEl.scrollIntoView({ block: 'nearest' });
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (filtered[selectedIndex]) {
+        filtered[selectedIndex].action();
+        closeCmd();
+      }
+    }
+  });
+}
+</script>
+</body>
+</html>

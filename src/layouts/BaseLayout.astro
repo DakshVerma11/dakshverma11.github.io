@@ -144,16 +144,16 @@ if (nav && toggle && links) {
   toggle.addEventListener('click', () => {
     const isExpanded = toggle.getAttribute('aria-expanded') === 'true';
     toggle.setAttribute('aria-expanded', !isExpanded);
-    toggle.classList.toggle('active');
-    links.classList.toggle('active');
+    toggle.classList.toggle('open');
+    links.classList.toggle('open');
   });
 
   // Close menu when clicking a link
   links.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       toggle.setAttribute('aria-expanded', 'false');
-      toggle.classList.remove('active');
-      links.classList.remove('active');
+      toggle.classList.remove('open');
+      links.classList.remove('open');
     });
   });
 }

@@ -8,6 +8,16 @@ import '../styles/global.css';
 <section class="hero" id="hero">
   <div class="hero-bg"><canvas id="hero-canvas"></canvas></div>
   <div class="hero-content">
+    <div class="profile-widget reveal">
+      <div class="profile-cover" style="background-image: url('https://media.licdn.com/dms/image/v2/D4D16AQF_eZLDWF6G9w/profile-displaybackgroundimage-shrink_200_800/profile-displaybackgroundimage-shrink_200_800/0/1700159416272?e=1782345600&v=beta&t=7SH4yWntHLswK28zPrWy8q81hOBQBXH9UWibTLvCTZA');"></div>
+      <div class="profile-avatar-wrap">
+        <img src="https://media.licdn.com/dms/image/v2/D5603AQHFedbVqzYYKg/profile-displayphoto-crop_800_800/B56Z5I7KfBKIAI-/0/1779339934304?e=1782345600&v=beta&t=kuH94rkiEfgbV9yU6qb11MSgF3xgirBLIK-OEnfe_nA" alt="Daksh Verma" class="profile-avatar" />
+      </div>
+      <div class="profile-info">
+        <h1 class="profile-name">Daksh Verma</h1>
+        <p class="profile-role">Software Engineer | NIT Delhi</p>
+      </div>
+    </div>
     <div class="terminal" role="presentation">
       <div class="terminal-header">
         <span class="terminal-dot"></span>
@@ -232,6 +242,26 @@ function initTerminal() {
     
     // Add command to history
     history.insertAdjacentHTML('beforeend', `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-prompt">❯ </span><span class="terminal-cmd">${cmd}</span></div>`);
+    
+    // Handle cd navigation
+    if (cmd.startsWith('cd ')) {
+      const target = cmd.substring(3).trim();
+      let path = '';
+      if (target === '/' || target === 'home' || target === '~' || target === '..') path = '/';
+      else if (['resume', 'projects', 'experience', 'achievements', 'play'].includes(target.replace(/^\//, '').replace(/\/$/, ''))) {
+        path = '/' + target.replace(/^\//, '').replace(/\/$/, '');
+      }
+      
+      if (path) {
+        history.insertAdjacentHTML('beforeend', `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-output">Changing directory to ${path}...</span></div>`);
+        setTimeout(() => window.location.href = path, 500);
+        return;
+      } else {
+        history.insertAdjacentHTML('beforeend', `<div class="terminal-line" style="animation-delay:0s"><span class="terminal-output" style="color:#ef4444;">bash: cd: ${target}: No such file or directory</span></div>`);
+        history.scrollTop = history.scrollHeight;
+        return;
+      }
+    }
     
     if (commands[cmd]) {
       if (cmd === 'clear') {

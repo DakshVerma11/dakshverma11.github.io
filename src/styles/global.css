@@ -84,7 +84,16 @@ ul, ol { list-style: none; }
 .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: calc(var(--nav-height) + 40px) 24px 80px; position: relative; overflow: hidden; }
 .hero-bg { position: absolute; inset: 0; z-index: 0; }
 .hero-bg canvas { width: 100%; height: 100%; }
-.hero-content { position: relative; z-index: 1; text-align: center; max-width: 800px; }
+.hero-content { position: relative; z-index: 1; text-align: center; max-width: 800px; width: 100%; }
+
+/* ===== PROFILE WIDGET ===== */
+.profile-widget { width: 100%; max-width: 640px; margin: 0 auto 24px; background: var(--bg-card); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); overflow: hidden; text-align: left; box-shadow: 0 12px 40px rgba(0,0,0,0.3); }
+.profile-cover { width: 100%; height: 120px; background-size: cover; background-position: center; border-bottom: 1px solid var(--border-subtle); }
+.profile-avatar-wrap { position: relative; margin-top: -40px; padding: 0 24px; }
+.profile-avatar { width: 80px; height: 80px; border-radius: 50%; border: 4px solid var(--bg-card); background: var(--bg-card); object-fit: cover; }
+.profile-info { padding: 12px 24px 24px; }
+.profile-name { font-size: 1.4rem; font-weight: 700; color: var(--text-primary); margin-bottom: 4px; }
+.profile-role { font-size: 0.95rem; color: var(--accent-cyan); font-family: var(--font-mono); }
 
 /* Terminal hero */
 .terminal { background: rgba(10,10,15,0.9); border: 1px solid var(--border-subtle); border-radius: var(--radius-lg); padding: 0; max-width: 640px; width: 100%; margin: 0 auto; overflow: hidden; box-shadow: 0 24px 80px rgba(0,0,0,0.5), 0 0 1px rgba(255,255,255,0.1); text-align: left; }
